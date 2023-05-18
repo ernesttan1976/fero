@@ -1,0 +1,44 @@
+[
+    {
+      "_id": "643970eb15f6391c7887b6fc",
+      "title": "Typescript by Web Dev Simplified",
+      "description": "15 Youtube Videos Series on Typescript",
+      "image": "https://i.ytimg.com/vi/jBmrduvKl5w/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAlV5w49TUHYevR-hne7kUvjHrxzw",
+      "startDate": "2022-03-23T16:00:00.000Z",
+      "endDate": "2099-03-23T16:00:00.000Z",
+      "student_ids": [],
+      "lessons_ids": [],
+      "discussion_ids": [],
+      "created_at": "2023-04-14T15:27:39.314Z",
+      "updated_at": "2023-04-14T15:27:39.314Z",
+      "__v": 0
+    },
+    {
+      "_id": "643970eb15f6391c7887b6fd",
+      "title": "Next.js Tutorial for Beginners by Dave Gray",
+      "description": "9 Youtube Videos Series on Next.js",
+      "image": "https://i.ytimg.com/vi/6h649f2fB9Q/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBKt2MBs1wWUJD2-BUyHdrJwwhv2g",
+      "startDate": "2023-01-16T16:00:00.000Z",
+      "endDate": "2099-01-16T16:00:00.000Z",
+      "student_ids": [],
+      "lessons_ids": [],
+      "discussion_ids": [],
+      "created_at": "2023-04-14T15:27:39.315Z",
+      "updated_at": "2023-04-14T15:27:39.315Z",
+      "__v": 0
+    },
+    {
+      "_id": "643970eb15f6391c7887b6fe",
+      "title": "React Hooks by Web Dev Simplified",
+      "description": "16 Youtube Videos Series on React Hooks",
+      "image": "https://i.ytimg.com/vi/O6P86uwfdR0/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCjFfkCaia8DcMnohwQGVE9KfbciQ",
+      "startDate": "2020-04-05T16:00:00.000Z",
+      "endDate": "2099-04-05T16:00:00.000Z",
+      "student_ids": [],
+      "lessons_ids": [],
+      "discussion_ids": [],
+      "created_at": "2023-04-14T15:27:39.315Z",
+      "updated_at": "2023-04-14T15:27:39.315Z",
+      "__v": 0
+    }
+  ]
