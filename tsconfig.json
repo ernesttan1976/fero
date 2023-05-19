@@ -23,10 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-<<<<<<< HEAD
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/models/User.js"],
-=======
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "pages/about/index.tsx"],
->>>>>>> 6355a93a9ba7b1438433814ff144b338777a04e6
   "exclude": ["node_modules"]
 }
