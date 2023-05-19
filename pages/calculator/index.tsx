@@ -122,8 +122,8 @@ const CalculatorPage: React.FC= () => {
     const handleChange = (changedValues: any, allValues: any) => {
       setFormData(allValues); // Update the form data state with all the form values
       //alert(JSON.stringify(changedValues));
-      if (Object.keys(changedValues)[0] === "grossMonthlyIncome") {
-        const yearly = Object.values(changedValues)[0] * 12;
+      if (changedValues["grossMonthlyIncome"]) {
+        const yearly = changedValues["grossMonthlyIncome"] * 12;
         form.setFieldsValue({ grossYearlyIncome: yearly }); // Update the value of grossYearIncome field
       }
     };
