@@ -2,6 +2,7 @@
 import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, LeftOutlined } from '@ant-design/icons';
 import { Steps, Button, Form, Input, DatePicker, InputNumber } from 'antd';
 import {useState} from "react";
+import dayjs from "dayjs";
 
 const { Step } = Steps;
 const { TextArea } = Input;
@@ -10,6 +11,13 @@ const requiredFlag = false;
 const CalculatorPage: React.FC= () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [form] = Form.useForm();
+    const [formData, setFormData] = useState<Record<string, any>>({
+      dob: dayjs("1990-01-01"),
+      retirementAge: 55,
+      grossMonthlyIncome: 3500,
+      grossYearlyIncome: 42000,
+      cpfOA: 20000,
+    }); 
   
     const steps = [
       {
@@ -38,7 +46,13 @@ const CalculatorPage: React.FC= () => {
                 message: 'Gross Monthly Income is required',
                 pattern: /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/ 
             }]}>
-              <InputNumber />
+              <InputNumber/>
+            </Form.Item>
+            <Form.Item
+              label="Gross Yearly Income $"
+              name="grossYearlyIncome"
+              >
+              <InputNumber disabled={true}/>
             </Form.Item>
           </>
         ),
@@ -100,9 +114,18 @@ const CalculatorPage: React.FC= () => {
   
     const handleSubmit = () => {
       form.validateFields().then((values) => {
-        // Handle form submission with all the form data
-        console.log(values);
+        setFormData(values); // Update the form data state with the final form values
+        console.log(formData); // Access the form data in the handleSubmit function
       });
+    };
+
+    const handleChange = (changedValues: any, allValues: any) => {
+      setFormData(allValues); // Update the form data state with all the form values
+      //alert(JSON.stringify(changedValues));
+      if (Object.keys(changedValues)[0] === "grossMonthlyIncome") {
+        const yearly = Object.values(changedValues)[0] * 12;
+        form.setFieldsValue({ grossYearlyIncome: yearly }); // Update the value of grossYearIncome field
+      }
     };
   
     return (
@@ -115,6 +138,7 @@ const CalculatorPage: React.FC= () => {
         <Form
           form={form}
           onFinish={handleSubmit}
+          onValuesChange={handleChange}
           style={{ marginTop: '2rem' }}
         >
           <div>{steps[currentStep].content}</div>
@@ -141,3 +165,4 @@ const CalculatorPage: React.FC= () => {
   };
   
 export default CalculatorPage;
+
