@@ -5,7 +5,7 @@
   justify-content: center;
   text-align: center;
   background-color: #3e92cc;
-  height: 70vh;
+  height: 80vh;
 }
 
 .welcomeTo {
@@ -15,18 +15,36 @@
   font-size: 24px;
   line-height: 29px;
   color: #ffffff;
+  margin-bottom: 10px;
 }
 
 .background {
-  background: "#3E92CC";
+  background: #3e92cc;
+  z-index: 1;
 }
 
 .user {
-  background-color: black;
-  border-radius: 10px 10px 0px 0px;
+  background-color: white;
+  border-radius: 30px 30px 0px 0px;
   height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 6;
+  transform: translateY(10%);
+}
+
+.p {
+  width: 334px;
+  height: 57px;
+  font-size: 16px;
+  color: white;
+}
+
+.heading {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 0px;
 }
