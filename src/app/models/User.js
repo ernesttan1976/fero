@@ -22,21 +22,12 @@ const usersSchema = new Schema(
     },
     role: {
       type: String,
-      default: 'Student',
-      enum: ["Student", "Instructor", "Admin"]
+      default: "User",
+      enum: ["User", "Admin"]
     },
     avatar: {
       type: String,
     },
-    stripe_account_id: {
-      type: String,
-    },
-    stripe_seller: {},
-    stripeSession: {},
-    courses_id: [{
-      type: Schema.Types.ObjectId,
-      ref: "Course",
-    }]
   },
   {
     timestamps: {
@@ -60,5 +51,15 @@ usersSchema.set("toJSON", {
     return ret;
   },
 });
+
+let User;
+
+try {
+  // Try to retrieve the existing model
+  User = mongoose.model("User");
+} catch (error) {
+  // If the model doesn't exist, define and compile it
+  User = mongoose.model("User", usersSchema);
+}
 
 module.exports = mongoose.model("User", usersSchema);

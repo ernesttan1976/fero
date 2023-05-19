@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import seedUsers from "@/app/lib/seedUsers";
 //SEED
 export async function GET() {
-    return NextResponse.json({"message":'Hello, Next.js!'});
+    seedUsers();
+    return NextResponse.json({"message": "Seed Users Successful"});
 }
