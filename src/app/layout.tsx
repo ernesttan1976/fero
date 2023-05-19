@@ -1,14 +1,14 @@
 import React, { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 
-import WrappedConfigProvider from './components/wrappedConfigProvider';
-import WrappedBreadcrumb from './components/wrappedBreadcrumb';
-import WrappedMenu from './components/wrappedMenu';
-import WrappedHeader from './components/wrappedHeader';
-import WrappedContent from './components/wrappedContent';
-import WrappedFooter from './components/wrappedFooter';
-import WrappedLayout from './components/wrappedLayout';
-import WrappedBreadcrumbItem from './components/wrappedBreadcrumbItem';
+import WConfigProvider from './components/wrappedConfigProvider';
+import WBreadcrumb from './components/wrappedBreadcrumb';
+import WMenu from './components/wrappedMenu';
+import WHeader from './components/wrappedHeader';
+import WContent from './components/wrappedContent';
+import WFooter from './components/wrappedFooter';
+import WLayout from './components/wrappedLayout';
+import WBreadcrumbItem from './components/wrappedBreadcrumbItem';
 
 import connect from './config/database';
 
@@ -29,7 +29,7 @@ export default async function RootLayout({ children} : {children: ReactNode}) {
 
   return (
     <html lang="en">
-      <WrappedConfigProvider
+      <WConfigProvider
         theme={{
           token: {
             colorPrimary: '#ff17ff',
@@ -38,10 +38,10 @@ export default async function RootLayout({ children} : {children: ReactNode}) {
         }}
       >
         <body className={inter.className}>
-          <WrappedLayout className="layout">
-            <WrappedHeader style={{ display: 'flex', alignItems: 'center' }}>
+          <WLayout className="layout">
+            <WHeader style={{ display: 'flex', alignItems: 'center' }}>
               <div className="demo-logo" />
-              <WrappedMenu
+              <WMenu
                 theme="dark"
                 mode="horizontal"
                 defaultSelectedKeys={['2']}
@@ -53,21 +53,21 @@ export default async function RootLayout({ children} : {children: ReactNode}) {
                   };
                 })}
               />
-            </WrappedHeader>
-            <WrappedContent style={{ padding: '0 50px' }}>
-              <WrappedBreadcrumb style={{ margin: '16px 0' }}>
-                <WrappedBreadcrumbItem>Home</WrappedBreadcrumbItem>
-                <WrappedBreadcrumbItem>List</WrappedBreadcrumbItem>
-                <WrappedBreadcrumbItem>App</WrappedBreadcrumbItem>
-              </WrappedBreadcrumb>
+            </WHeader>
+            <WContent style={{ padding: '0 50px' }}>
+              <WBreadcrumb style={{ margin: '16px 0' }}>
+                <WBreadcrumbItem>Home</WBreadcrumbItem>
+                <WBreadcrumbItem>List</WBreadcrumbItem>
+                <WBreadcrumbItem>App</WBreadcrumbItem>
+              </WBreadcrumb>
               <div className="site-layout-content" style={{ background: 'slate' }}>
                 {children}
               </div>
-            </WrappedContent>
-            <WrappedFooter style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</WrappedFooter>
-          </WrappedLayout>
+            </WContent>
+            <WFooter style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</WFooter>
+          </WLayout>
         </body>
-      </WrappedConfigProvider>
+      </WConfigProvider>
     </html>
   );
 }

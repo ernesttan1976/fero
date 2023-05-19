@@ -3,6 +3,6 @@
 import {Layout} from 'antd';
 const { Header} = Layout;
 
-export default function WrappedHeader(props: any) {
+export default function WHeader(props: any) {
   return <Header {...props}>{props?.children}</Header>;
 }

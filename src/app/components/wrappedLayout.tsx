@@ -2,6 +2,6 @@
  
 import {Layout} from 'antd';
 
-export default function WrappedLayout(props:any) {
+export default function WLayout(props:any) {
   return <Layout {...props}>{props?.children}</Layout>;
 }
