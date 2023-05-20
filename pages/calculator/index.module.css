@@ -1,0 +1,47 @@
+/* .h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #3e92cc;
+  height: 80vh;
+} */
+
+/* .welcomeTo {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+  margin-bottom: 10px;
+} */
+
+.background {
+  background: #3e92cc;
+  z-index: 0;
+}
+
+.user {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1;
+}
+
+/* .p {
+  width: 334px;
+  height: 57px;
+  font-size: 16px;
+  color: white;
+} */
+
+.heading {
+  font-size: 24px;
+  color: 'slate';
+  margin-bottom: 0px;
+}
