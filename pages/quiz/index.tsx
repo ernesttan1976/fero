@@ -1,69 +1,77 @@
-'use client'
+"use client";
+import styles from "./index.module.css";
+import { Button, Radio } from "antd";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import { Inter } from "next/font/google";
 
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
+import { useState } from "react";
 
+const inter = Inter({ subsets: ["latin"] });
 export default function QuizPage() {
+  const [correctAns, setCorrectAns] = useState();
 
+  const handleSelect = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.currentTarget.style.backgroundColor = "blue";
+  };
   return (
-    <Form>
-      <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-        <Form.Label column sm={2}>
-          Email
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control type="email" placeholder="Email" />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-        <Form.Label column sm={2}>
-          Password
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control type="password" placeholder="Password" />
-        </Col>
-      </Form.Group>
-      <fieldset>
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label as="legend" column sm={2}>
-            Radios
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Check
-              type="radio"
-              label="first radio"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios1"
-            />
-            <Form.Check
-              type="radio"
-              label="second radio"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios2"
-            />
-            <Form.Check
-              type="radio"
-              label="third radio"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios3"
-            />
-          </Col>
-        </Form.Group>
-      </fieldset>
-      <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
-        <Col sm={{ span: 10, offset: 2 }}>
-          <Form.Check label="Remember me" />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} className="mb-3">
-        <Col sm={{ span: 10, offset: 2 }}>
-          <Button type="submit">Sign in</Button>
-        </Col>
-      </Form.Group>
-    </Form>
+    <>
+      <div className={styles.quiz}>
+        <h1>Quiz Time!</h1>
+        <p>50pts</p>
+        <h1>What is long-term savings about?</h1>
+        <div className={styles.question}>
+          <Button
+            className={`${inter.className} ${styles.button}`}
+            onClick={() => handleSelect}
+          >
+            a) Generating consistent income from investments
+          </Button>
+          <Button className={`${inter.className} ${styles.button}`}>
+            b) Earning returns on the initial investment and accumulated
+            earnings over time
+          </Button>
+          <Button className={`${inter.className} ${styles.button}`}>
+            c) Investing in high-risk assets for quick gains
+          </Button>
+          <Button className={`${inter.className} ${styles.button}`}>
+            d) Reinvesting dividends to maximise investment growth
+          </Button>
+          <h1>
+            {correctAns === undefined
+              ? ""
+              : correctAns
+              ? "Great Job! That is correct"
+              : "Explanation"}
+          </h1>
+          <Button className={`${inter.className} ${styles.button}`}>
+            Next
+          </Button>
+        </div>
+      </div>
+      <></>
+    </>
   );
 }
+
+// const App: React.FC = () => (
+//   <>
+//     <Radio.Group defaultValue="a" buttonStyle="solid">
+//       <Radio.Button value="a">Hangzhou</Radio.Button>
+//       <Radio.Button value="b">Shanghai</Radio.Button>
+//       <Radio.Button value="c">Beijing</Radio.Button>
+//       <Radio.Button value="d">Chengdu</Radio.Button>
+//     </Radio.Group>
+//     <Radio.Group defaultValue="c" buttonStyle="solid" style={{ marginTop: 16 }}>
+//       <Radio.Button value="a">Hangzhou</Radio.Button>
+//       <Radio.Button value="b" disabled>
+//         Shanghai
+//       </Radio.Button>
+//       <Radio.Button value="c">Beijing</Radio.Button>
+//       <Radio.Button value="d">Chengdu</Radio.Button>
+//     </Radio.Group>
+//   </>
+// );
+
+// export default App;
