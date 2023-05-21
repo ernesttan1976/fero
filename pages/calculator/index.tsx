@@ -32,25 +32,20 @@ const CalculatorPage: React.FC = () => {
 
   const insurancePlans = {
     Life: ['NTUC Income Life Insurance', 'Prudential Life Insurance', 'Great Eastern Life Insurance'],
-    Accident: ['NTUC Accident Insurance', 'Prucdential Accident Insurance', 'Great Eastern Accident Insurance'],
-    Term: ['NTUC Term Insurance', 'Prucdential Term Insurance', 'Great Eastern Term Insurance'],
+    Accident: ['NTUC Accident Insurance', 'Prudential Accident Insurance', 'Great Eastern Accident Insurance'],
+    Term: ['NTUC Term Insurance', 'Prudential Term Insurance', 'Great Eastern Term Insurance'],
   };
 
   type insurancePlansKeys = keyof typeof insurancePlans;
 
   const handleChange = (changedValues: any, allValues: any) => {
-    setFormData(allValues); // Update the form data state with all the form values
     alert(JSON.stringify(changedValues));
     if (changedValues["grossMonthlyIncome"]) {
       const yearly = changedValues["grossMonthlyIncome"] * 12;
       form.setFieldsValue({ grossYearlyIncome: yearly }); // Update the value of grossYearIncome field
     }
-    // if (changedValues["type"]){
-    //   form.setFieldsValue({type: changedValues["type"]});
-    // }
-    // if (changedValues["insurancePlans"]){
-    //   form.setFieldsValue({ insurancePlans: [] });
-    // }
+    setFormData({...formData, ...allValues,...changedValues}); // Update the form data state with all the form values
+    
   };
 
   // const handleChange = () => {
