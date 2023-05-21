@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styles from "./index.module.css";
+import Link from "next/link";
 
 const contentStyle: React.CSSProperties = {
   // margin: 0,
@@ -93,7 +94,8 @@ const About: React.FC = () => {
         </div>
       </Carousel>
       <div className={styles.user}>
-        <Button
+        <Link href="/signup">
+          <Button
           size="large"
           style={{
             marginTop: "20px",
@@ -107,6 +109,8 @@ const About: React.FC = () => {
         >
           Create New Account
         </Button>
+        </Link>
+        <Link href="/signin">
         <Button
           size="large"
           style={{
@@ -120,6 +124,7 @@ const About: React.FC = () => {
         >
           Sign In
         </Button>
+        </Link>
       </div>
     </>
     // <Container>

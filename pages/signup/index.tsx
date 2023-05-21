@@ -4,6 +4,8 @@ import { Button, Form, Input } from "antd";
 import { Inter } from "next/font/google";
 
 import styles from "./index.module.css";
+import { LeftOutlined } from "@ant-design/icons";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,7 +41,7 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <>
+    <div>
       <Form
         form={form}
         {...formItemLayout}
@@ -52,6 +54,7 @@ const SignUp: React.FC = () => {
         autoComplete="off"
         scrollToFirstError
       >
+        <Link href="/about"><LeftOutlined /></Link>
         <div className={`${styles.heading} ${inter.className}`}>SIGN UP</div>
 
         <Form.Item
@@ -139,7 +142,7 @@ const SignUp: React.FC = () => {
         </Form.Item>
         
       </Form>
-    </>
+      </div>
   );
 };
 
