@@ -1,5 +1,6 @@
 import {IUser} from "../../../models"
 import User from "../models/User";
+import connect from "../config/database";
 
 // import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -8,6 +9,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const SALT_ROUNDS = 6;
 
 export default async function seedUsers() {
+      
+        await connect();
 
         await User.deleteMany({});
     

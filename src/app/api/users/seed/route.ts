@@ -5,3 +5,5 @@ export async function GET() {
     seedUsers();
     return NextResponse.json({"message": "Seed Users Successful"});
 }
+
+//api/users/seed

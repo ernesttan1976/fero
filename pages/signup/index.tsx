@@ -13,8 +13,31 @@ const SignUp: React.FC = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
-  };
+    //console.log('Received values of form: ', values);
+    delete values.confirmPassword;
+    
+    fetch(`/api/users/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => {
+        // Handle the response
+        if (response.ok) {
+          // Handle the success case
+          console.log('Request succeeded');
+        } else {
+          // Handle the error case
+          console.log('Request failed');
+        }
+      })
+      .catch((error) => {
+        // Handle any error that occurs during the request
+        console.error('Error:', error);
+      });
+    };
 
   const formItemLayout = {
     labelCol: {
