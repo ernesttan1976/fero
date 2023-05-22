@@ -3,35 +3,35 @@ import User from "../models/User";
 import connect from "../config/database";
 
 import jwt from "jsonwebtoken";
-//import bcrypt from "bcrypt";
-import { faker } from "@faker-js/faker";
+import bcrypt from "bcrypt";
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
-//const SALT_ROUNDS = 6;
+const SALT_ROUNDS = 6;
 
-export default async function signupUser(userData: IUser) {
-
+export default async function signinUser(userData: IUser) {
+  
   try {
 
     await connect();
 
-    const { name, email, password} = userData;
-    if (!name) throw new Error("Name is required");
-
+    const {email, password} = userData;
+    
     if (!password || password.length < 5) throw new Error("Password is required and min 4 characters.");
 
-    let emailFound = await User.findOne({email});
-    if (emailFound) throw new Error("This email is already taken");
+    let userFound = await User.findOne({email});
+    if (userFound===null) throw new Error("No user found, please sign up");
 
-    console.log(userData);
-    const user = await User.create({...userData});
-    if (!user.avatar) {
-      user.avatar = faker.image.avatar();
+    const match = await bcrypt.compare(password, userFound.password);
+    if (match) {
+      const payload = { userFound };
+      const token = jwt.sign(payload, JWT_SECRET, { expiresIn: 6000 });
+      console.log(token);
+      return token;
+      console.log("user login successful");
+    } else {
+      throw new Error(`Wrong password`);
     }
-    const payload = { user };
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: 6000 }); // 1hr
-    return token;
   } catch (error) {
-    throw new Error(`signup user error ${error}`);
+    throw new Error(`Sign in user error ${error}`);
   }
 
 }

@@ -1,12 +1,14 @@
 "use client"
 import { LeftOutlined, MinusCircleOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons';
 import { Steps, Button, Form, Input, DatePicker, InputNumber, Space, Select, Typography, Col } from 'antd';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import dayjs from "dayjs";
 // import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 import styles from "./index.module.css";
 import Image from 'next/image';
+import {UserContext} from "../../src/app/layout";
+import { IUser } from '../../models';
 
 const { Step } = Steps;
 const { TextArea } = Input;
@@ -26,8 +28,8 @@ const CalculatorPage: React.FC = () => {
   });
   // const { width, height } = useWindowSize()
   const [celebrate, setCelebrate] = useState(false);
-
-
+  const user = useContext(UserContext) as IUser;
+  if (user) alert(user);
   //form.setFieldsValue({ insurancePlans: [] });
   const insuranceTypes = [
     { label: 'Life', value: 'Life' },
@@ -49,7 +51,8 @@ const CalculatorPage: React.FC = () => {
       const yearly = changedValues["grossMonthlyIncome"] * 12;
       form.setFieldsValue({ grossYearlyIncome: yearly }); // Update the value of grossYearIncome field
     }
-    setFormData({ ...formData, ...allValues, ...changedValues }); // Update the form data state with all the form values
+    const userEmail = user ? user.email : "not@defined.com"
+    setFormData({ ...formData, ...allValues, ...changedValues, email: userEmail }); // Update the form data state with all the form values
 
   };
 
@@ -299,7 +302,8 @@ const CalculatorPage: React.FC = () => {
         setCelebrate(false);
       }, 5000);
 
-      const email = "abc@xyz.com";
+      // const email = "abc@xyz.com";
+      const email = user ? user.email: "not@defined.com";
       // Make a POST request to the API endpoint
       fetch(`/api/calculator/${email}`, {
         method: 'POST',
