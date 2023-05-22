@@ -67,12 +67,10 @@ const CalculatorPage: React.FC = () => {
       title: 'Your Monthly Salary',
       content: (
         <>
-
-          <Col span={24}>
-            <Space align="center" direction="vertical">
+          <div className={styles.innerContent}>
               <Title level={1}>BUDGET CALCULATOR</Title>
               <Image
-                src='/Paycheck.png'
+                src='/Paycheck.svg'
                 width={300}
                 height={300}
                 alt="Paycheck"
@@ -94,29 +92,7 @@ const CalculatorPage: React.FC = () => {
                   formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 />
               </Form.Item>
-            </Space>
-          </Col>
-          {/* <Form.Item
-            label="Date of Birth (DD-MM-YYYY)"
-            name="dob"
-            rules={[{ required: requiredFlag, message: 'Date of Birth is required' }]}
-          >
-            <DatePicker format="DD-MM-YYYY" />
-          </Form.Item>
-          <Form.Item
-            label="Retirement Age"
-            name="retirementAge"
-            rules={[{ required: requiredFlag, message: 'Retirement age is required' }]}
-
-          >
-            <InputNumber />
-          </Form.Item>
-          <Form.Item
-            label="Gross Yearly Income $"
-            name="grossYearlyIncome"
-          >
-            <InputNumber disabled={true} />
-          </Form.Item> */}
+          </div>
         </>
       ),
     },
@@ -188,11 +164,10 @@ const CalculatorPage: React.FC = () => {
       title: 'Your Monthly Expenses',
       content: (
         <>
-          <Col span={24}>
-            <Space align="center" direction="vertical">
-              <Title level={1}>BUDGET CALCULATOR</Title>
+            <div className={styles.innerContent}>
+              <Title level={1} style={{textAlign: "left"}}>BUDGET CALCULATOR</Title>
               <Image
-                src='/Budget.png'
+                src='/CashPayments.svg'
                 width={300}
                 height={300}
                 alt="Paycheck"
@@ -298,10 +273,7 @@ const CalculatorPage: React.FC = () => {
                   formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 />
               </Form.Item>
-            </Space>
-          </Col>
-
-
+            </div>
         </>
       ),
     }
@@ -329,27 +301,6 @@ const CalculatorPage: React.FC = () => {
   };
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  // useEffect(() => {
-  //   const canvas = canvasRef.current;
-  //   const ctx = canvas?.getContext('2d');
-
-  //   // const drawConfetti = (ctx: CanvasRenderingContext2D) => {
-  //   //   ctx.beginPath();
-  //   //   for (let i = 0; i < 22; i++) {
-  //   //     const angle = 0.35 * i;
-  //   //     const x = (0.2 + (1.5 * angle)) * Math.cos(angle);
-  //   //     const y = (0.2 + (1.5 * angle)) * Math.sin(angle);
-  //   //     ctx.lineTo(x, y);
-  //   //   }
-  //   //   ctx.stroke();
-  //   //   ctx.closePath();
-  //   // }
-
-  //   // if (canvas && ctx) {
-  //   //   drawConfetti(ctx);
-  //   // }
-  // }, []);
 
   const formItemLayout = {
     labelCol: {
@@ -384,11 +335,11 @@ const CalculatorPage: React.FC = () => {
               </Button>
             )}
           </div>
-          <Steps current={currentStep}>
+          {/* <Steps current={currentStep}>
             {steps.map((step) => (
               <Step key={step.title} title={step.title} />
             ))}
-          </Steps>
+          </Steps> */}
           <div className={styles.content}>{steps[currentStep].content}</div>
         </Form>
         <div className={styles.bottom} style={{ marginTop: '2rem' }}>
