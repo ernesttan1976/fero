@@ -19,6 +19,7 @@ const usersSchema = new Schema(
       unique: true,
       trim: true,
       minLength: 5,
+      required: true,
     },
     role: {
       type: String,
@@ -52,14 +53,15 @@ usersSchema.set("toJSON", {
   },
 });
 
-let User;
+// let User;
 
-try {
-  // Try to retrieve the existing model
-  User = mongoose.model("User");
-} catch (error) {
-  // If the model doesn't exist, define and compile it
-  User = mongoose.model("User", usersSchema);
-}
+// try {
+//   // Try to retrieve the existing model
+//   let User = mongoose.model("User");
+  
+// } catch (error) {
+//   // If the model doesn't exist, define and compile it
+//   let User = mongoose.model("User", usersSchema);
+// }
 
 module.exports = mongoose.model("User", usersSchema);

@@ -1,74 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const insurancePlansSchema = new Schema (
-  {
-    type: {
-      type: String,
-      default: "Life",
-      enum: ["Life", "Accident", "Term"],
-    },
-    monthlyContribution: {
-      type: Number,
-    }
-  },
-  {
-    createdAt: "created_at",
-    updatedAt: "updated_at",
-  }
-);
-
-const investmentPlansSchema = new Schema (
-  {
-    type: {
-      type: String,
-      default: "Stocks",
-      enum: ["Stocks", "Bonds", "Unit Trust", "Reit"],
-    },
-    monthlyContribution: {
-      type: Number,
-    }
-  },
-  {
-    createdAt: "created_at",
-    updatedAt: "updated_at",
-  }
-);
-
-const longTermSavingsPlansSchema = new Schema (
-  {
-    type: {
-      type: String,
-      default: "Long Term Savings",
-      enum: ["Long Term Savings"],
-    },
-    monthlyContribution: {
-      type: Number,
-    }
-  },
-  {
-    createdAt: "created_at",
-    updatedAt: "updated_at",
-  }
-);
-
-const shortTermSavingsPlansSchema = new Schema (
-  {
-    type: {
-      type: String,
-      default: "Short Term Savings",
-      enum: ["Short Term Savings"],
-    },
-    monthlyContribution: {
-      type: Number,
-    }
-  },
-  {
-    createdAt: "created_at",
-    updatedAt: "updated_at",
-  }
-);
-
 const calculatorsSchema = new Schema(
   {
     email: {
@@ -91,26 +23,25 @@ const calculatorsSchema = new Schema(
     cpfOA:{
       type: Number,
     },
-    insurancePlans_id: [insurancePlanSchema],
-    investmentPlans_id: [investmentPlanSchema],
-    longTermSavingsPlans_id: [longTermSavingsPlansSchema],
-    shortTermSavingsPlans_id: [shortTermSavingsPlansSchema],
-    averageMonthlyExpenses_bills: {
+    expenses_food: {
       type: Number,
     },
-    averageMonthlyExpenses_mortgage: {
+    expenses_transport: {
       type: Number,
     },
-    averageMonthlyExpenses_loans: {
+    expenses_parents: {
       type: Number,
     },
-    averageMonthlyExpenses_transport: {
+    expenses_bills: {
       type: Number,
     },
-    averageMonthlyExpenses_food: {
+    expenses_loans: {
       type: Number,
     },
-    averageMonthlyExpenses_others: {
+    expenses_entertainment: {
+      type: Number,
+    },
+    expenses_miscellaneous: {
       type: Number,
     },
 

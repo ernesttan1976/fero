@@ -4,6 +4,8 @@ import { Button, Form, Input } from "antd";
 import { Inter } from "next/font/google";
 
 import styles from "./index.module.css";
+import { LeftOutlined } from "@ant-design/icons";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,8 +13,31 @@ const SignUp: React.FC = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
-  };
+    //console.log('Received values of form: ', values);
+    delete values.confirmPassword;
+    
+    fetch(`/api/users/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => {
+        // Handle the response
+        if (response.ok) {
+          // Handle the success case
+          console.log('Request succeeded');
+        } else {
+          // Handle the error case
+          console.log('Request failed');
+        }
+      })
+      .catch((error) => {
+        // Handle any error that occurs during the request
+        console.error('Error:', error);
+      });
+    };
 
   const formItemLayout = {
     labelCol: {
@@ -39,19 +64,20 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <>
+    <div>
       <Form
         form={form}
         {...formItemLayout}
         className={styles.signup}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
+        // style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
         scrollToFirstError
       >
+        <Link href="/about"><LeftOutlined /></Link>
         <div className={`${styles.heading} ${inter.className}`}>SIGN UP</div>
 
         <Form.Item
@@ -139,7 +165,7 @@ const SignUp: React.FC = () => {
         </Form.Item>
         
       </Form>
-    </>
+      </div>
   );
 };
 

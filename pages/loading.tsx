@@ -1,3 +1,4 @@
+"use client"
 import WSkeleton from "../src/app/components/wrappedSkeleton";
 import WSpin from "../src/app/components/wrappedSpin";
 

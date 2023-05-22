@@ -1,47 +1,68 @@
-/* .h1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: #3e92cc;
-  height: 80vh;
-} */
-
-/* .welcomeTo {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 29px;
-  color: #ffffff;
-  margin-bottom: 10px;
-} */
-
-.background {
-  background: #3e92cc;
-  z-index: 0;
-}
-
-.user {
+.page {
+  padding: 24px;
   background-color: white;
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  z-index: 1;
 }
 
-/* .p {
-  width: 334px;
-  height: 57px;
-  font-size: 16px;
-  color: white;
+.form{
+  width: 100%;
+}
+
+.fields {
+  width: 150px;
+  margin-bottom: 8px;
+}
+
+
+.content {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  min-width: 300px;
+  width: 50vw;  
+  text-align: center;
+}
+
+.innerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.topbutton {
+  width: 50vw;
+  padding: 30px; 
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  width: 50vw;
+  padding: 30px; 
+}
+
+/* .canvas {
+  position: absolute;
+  z-index: -1;
+  opacity: 1;
+  inset: 0 0 0 0;
 } */
 
-.heading {
+.text {
+  width: 300px;
+}
+
+/* .heading {
   font-size: 24px;
   color: 'slate';
   margin-bottom: 0px;
-}
+} */
