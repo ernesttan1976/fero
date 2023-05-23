@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 // Create a context for the user
-export const UserContext = createContext<[null | {}, React.Dispatch<React.SetStateAction<null | {}>>]>([null, () => {}]);
+import { UserContext } from './components/userContext/UserContext';
+import { IUser } from '../../models';
 
 
 
@@ -16,7 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser | null>(null);
+
 
   useEffect(() => {
     // Read the user from the localStorage
@@ -28,7 +30,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body><UserContext.Provider value={[user, setUser]}>{children}</UserContext.Provider></body>
+      <body><UserContext.Provider value={{user, setUser}}>{children}</UserContext.Provider></body>
     </html>
   )
 }
