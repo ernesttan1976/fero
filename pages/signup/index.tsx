@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ["latin"] });
 const SignUp: React.FC = () => {
   const [form] = Form.useForm();
   const router = useRouter();
-  const user = useContext(UserContext) as any;
+  const [user, setUser] = useContext(UserContext);
   const onFinish = (values: any) => {
     //console.log('Received values of form: ', values);
     delete values.confirmPassword;
@@ -32,7 +32,9 @@ const SignUp: React.FC = () => {
           // Handle the success case
           console.log('Request succeeded');
           localStorage.setItem("token", JSON.stringify(response));
-          if (user) user.setUser(response);
+          const userData = {email: values.email};
+          localStorage.setItem("user", JSON.stringify(userData));
+          setUser(userData);
           router.push('/calculator');
 
         } else {

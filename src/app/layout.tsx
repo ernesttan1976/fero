@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 // Create a context for the user
-export const UserContext = createContext<null | {}>(null);
+export const UserContext = createContext<[null | {}, React.Dispatch<React.SetStateAction<null | {}>>]>([null, () => {}]);
+
 
 
 export const metadata = {
@@ -15,11 +16,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  const [user, setUser] = useState<null | {}>(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Read the user from the localStorage
-    const userFromLocalStorage = localStorage.getItem('token');
+    const userFromLocalStorage = localStorage.getItem('user');
     if (userFromLocalStorage) {
       setUser(JSON.parse(userFromLocalStorage));
     }
@@ -27,7 +28,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body><UserContext.Provider value={user}>{children}</UserContext.Provider></body>
+      <body><UserContext.Provider value={[user, setUser]}>{children}</UserContext.Provider></body>
     </html>
   )
 }

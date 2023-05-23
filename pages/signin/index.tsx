@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const SignIn: React.FC =() => {
   const [form] = Form.useForm();
-  const user = useContext(UserContext) as any;
+  const [user, setUser] = useContext(UserContext);
   const router = useRouter();
   // if (user) alert(user);
   const onFinish = async (values: any) => {
@@ -32,7 +32,9 @@ const SignIn: React.FC =() => {
           console.log('Request succeeded');
           const {token} = await response.json();
           localStorage.setItem("token", token);
-          user.setUser(values);
+          const userData = {email: values.email};
+          localStorage.setItem("user", JSON.stringify(userData));
+          setUser(userData);
           router.push('/calculator');
 
       } else {

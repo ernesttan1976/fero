@@ -1,5 +1,5 @@
 "use client"
-import { LeftOutlined, MinusCircleOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Steps, Button, Form, Input, DatePicker, InputNumber, Space, Select, Typography, Col } from 'antd';
 import { useEffect, useRef, useState, useContext } from "react";
 import dayjs from "dayjs";
@@ -7,8 +7,10 @@ import dayjs from "dayjs";
 import Confetti from 'react-confetti'
 import styles from "./index.module.css";
 import Image from 'next/image';
-import {UserContext} from "../../src/app/layout";
+import { UserContext } from "../../src/app/layout";
 import { IUser } from '../../models';
+import Bar from '@/app/components/bar/bar';
+import Link from 'next/link';
 
 const { Step } = Steps;
 const { TextArea } = Input;
@@ -19,46 +21,58 @@ const { Title } = Typography;
 const CalculatorPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [form] = Form.useForm();
-  const [formData, setFormData] = useState<Record<string, any>>({
-    dob: dayjs("1990-01-01"),
-    retirementAge: 55,
-    grossMonthlyIncome: 3500,
-    // grossYearlyIncome: 42000,
-    // cpfOA: 20000,
-  });
-  // const { width, height } = useWindowSize()
+  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [barData, setBarData] = useState<any>({});
   const [celebrate, setCelebrate] = useState(false);
-  const user = useContext(UserContext) as IUser;
-  if (user) alert(user);
-  //form.setFieldsValue({ insurancePlans: [] });
-  const insuranceTypes = [
-    { label: 'Life', value: 'Life' },
-    { label: 'Accident', value: 'Accident' },
-    { label: 'Term', value: 'Term' },
-  ];
-
-  const insurancePlans = {
-    Life: ['NTUC Income Life Insurance', 'Prudential Life Insurance', 'Great Eastern Life Insurance'],
-    Accident: ['NTUC Accident Insurance', 'Prudential Accident Insurance', 'Great Eastern Accident Insurance'],
-    Term: ['NTUC Term Insurance', 'Prudential Term Insurance', 'Great Eastern Term Insurance'],
-  };
-
-  type insurancePlansKeys = keyof typeof insurancePlans;
+  const [user, setUser] = useContext<[IUser | null, React.Dispatch<React.SetStateAction<IUser | null>>]>(UserContext);
 
   const handleChange = (changedValues: any, allValues: any) => {
-    //alert(JSON.stringify(changedValues));
-    if (changedValues["grossMonthlyIncome"]) {
-      const yearly = changedValues["grossMonthlyIncome"] * 12;
-      form.setFieldsValue({ grossYearlyIncome: yearly }); // Update the value of grossYearIncome field
-    }
+
     const userEmail = user ? user.email : "not@defined.com"
     setFormData({ ...formData, ...allValues, ...changedValues, email: userEmail }); // Update the form data state with all the form values
-
+    //console.log(formData);
+    calculate();
   };
 
   // const handleChange = () => {
   //   form.setFieldsValue({ insurancePlans: [] });
   // };
+
+  function calculate() {
+    setBarData({
+      expenses: {
+        title: "Expenses",
+        value: formData.expenses_food + formData.expenses_transport + formData.expenses_parents + formData.expenses_bills + formData.expenses_loans + formData.expenses_entertainment + formData.expenses_miscellaneous,
+        total: formData.grossMonthlyIncome,
+      },
+      cpf: {
+        title: "CPF",
+        value: formData.grossMonthlyIncome * 0.20,
+        total: formData.grossMonthlyIncome,
+      },
+      insurance: {
+        title: "Insurance",
+        value: formData.grossMonthlyIncome * 0.10,
+        total: formData.grossMonthlyIncome,
+      },
+      investment: {
+        title: "Investment",
+        value: formData.grossMonthlyIncome * 0.10,
+        total: formData.grossMonthlyIncome,
+      },
+      longTermSavings: {
+        title: "Long Term Savings",
+        value: formData.grossMonthlyIncome * 0.10,
+        total: formData.grossMonthlyIncome,
+      },
+      shortTermSavings: {
+        title: "Short Term Savings",
+        value: formData.grossMonthlyIncome * 0.10,
+        total: formData.grossMonthlyIncome,
+      },
+    })
+    console.log(barData);
+  }
 
   const handleAdd = (add: any) => {
     add();
@@ -99,70 +113,6 @@ const CalculatorPage: React.FC = () => {
         </>
       ),
     },
-    // {
-    //   title: 'Step 2: Savings',
-    //   content: (
-    //     <>
-    //       <Form.Item name="insuranceType" label="Insurance Type" rules={[{ required: true, message: 'Missing insurance type' }]}>
-    //         <Select options={insuranceTypes} />
-    //       </Form.Item>
-    //       <Form.List name="insurancePlans">
-    //         {(fields, { add, remove }) => (
-    //           <>
-    //             {fields.map((field) => (
-    //               <Space align="baseline" direction='vertical'>
-    //                 <Space key={field.key} align="baseline" className={styles.row}>
-    //                   <Form.Item
-    //                     noStyle
-    //                     shouldUpdate={(prevValues, curValues) =>
-    //                       prevValues.insuranceTypes !== curValues.insurnaceTypes || prevValues.insurancePlans !== curValues.insurancePlans
-    //                     }
-    //                   >
-    //                     {() => (
-    //                       <Form.Item
-    //                         {...field}
-    //                         label="Insurance Plan"
-    //                         name={[field.name, 'insurancePlan']}
-    //                         rules={[{ required: true, message: 'Missing plan' }]}
-    //                       >
-    //                         <Select disabled={!form.getFieldValue('insurancePlans')} style={{ width: 130 }}>
-    //                           {(insurancePlans[form.getFieldValue('insuranceType') as insurancePlansKeys] || []).map((item) => (
-    //                             <Option key={item} value={item}>
-    //                               {item}
-    //                             </Option>
-    //                           ))}
-    //                         </Select>
-    //                       </Form.Item>
-    //                     )}
-    //                   </Form.Item>
-    //                   <Form.Item
-    //                     {...field}
-    //                     label="Monthly Contribution"
-    //                     name={[field.name, 'monthlyContribution']}
-    //                     rules={[{
-    //                       required: requiredFlag,
-    //                       message: 'Missing monthly contribution',
-    //                       pattern: /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/
-    //                     }]}
-    //                   >
-    //                     <InputNumber />
-    //                   </Form.Item>
-    //                   <MinusCircleOutlined onClick={() => remove(field.name)} />
-    //                 </Space>
-    //               </Space>
-    //             ))}
-    //             ``
-    //             <Form.Item>
-    //               <Button type="dashed" onClick={() => handleAdd(add)} block icon={<PlusOutlined />}>
-    //                 Add Insurance Plans
-    //               </Button>
-    //             </Form.Item>
-    //           </>
-    //         )}
-    //       </Form.List>
-    //     </>
-    //   ),
-    // },
     {
       title: 'Your Monthly Expenses',
       content: (
@@ -279,11 +229,57 @@ const CalculatorPage: React.FC = () => {
           </div>
         </>
       ),
+    },
+    {
+      title: 'Calculating...',
+      content: (
+        <>
+          <div className={styles.blueInnerContent}>
+            <Title level={1} style={{ textAlign: "left" }}>Calculating...</Title>
+            <Image
+              src="/FinanceCalculator.svg"
+              width={300}
+              height={300}
+              alt="Finance Calculator"
+            />
+            {/* <Title level={2}>Your Monthly Expenses</Title> */}
+            <Typography.Paragraph className={styles.text}>
+              Ready to have a better plan for your budget</Typography.Paragraph>
+          </div>
+        </>
+      ),
+    },
+    {
+      title: 'Recommendation',
+      content: (
+        <>
+          <div className={styles.innerContent}>
+            <Title level={1} style={{ textAlign: "left" }}>BUDGET CALCULATOR</Title>
+            <Image
+              src='/FinanceCalculatorIllustrationHealthy.svg'
+              width={300}
+              height={300}
+              alt="Finance Calculator Result"
+            />
+            <Title level={2}>Great Job Peter!</Title>
+            <Typography.Paragraph className={styles.text}>
+              Great job! You currently practise healthy spending habits! Keep up the good work!</Typography.Paragraph>
+            <Bar {...barData.expenses} />
+            <Bar {...barData.cpf} />
+            <Bar {...barData.insurance} />
+            <Bar {...barData.investment} />
+            <Bar {...barData.longTermSavings} />
+            <Bar {...barData.shortTermSavings} />
+          </div>
+        </>
+      ),
     }
   ];
 
   const handleNext = () => {
     form.validateFields().then(() => {
+      //recalculates if there are any changes
+      if (currentStep === 1) calculate()
       setCurrentStep(currentStep + 1);
     });
   };
@@ -303,7 +299,7 @@ const CalculatorPage: React.FC = () => {
       }, 5000);
 
       // const email = "abc@xyz.com";
-      const email = user ? user.email: "not@defined.com";
+      const email = user ? user.email : "not@defined.com";
       // Make a POST request to the API endpoint
       fetch(`/api/calculator/${email}`, {
         method: 'POST',
@@ -326,92 +322,99 @@ const CalculatorPage: React.FC = () => {
           // Handle any error that occurs during the request
           console.error('Error:', error);
         });
-      });
+    });
 
-};
+  };
 
-const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 10 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
-};
+  const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 10 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 14 },
+    },
+  };
 
-return (
-  <>
-    <div className={styles.page}>
+  return (
+    <>
+      <div className={styles.page}>
 
-      <Form
-        className={styles.form}
-        form={form}
-        name="calculator_form"
-        onFinish={handleSubmit}
-        onValuesChange={handleChange}
-        style={{ marginTop: '2rem' }}
-        {...formItemLayout}
-        labelCol={{ span: 12 }}
-        wrapperCol={{ span: 12 }}
+        <Form
+          className={styles.form}
+          form={form}
+          name="calculator_form"
+          onFinish={handleSubmit}
+          onValuesChange={handleChange}
+          style={{ marginTop: '2rem' }}
+          {...formItemLayout}
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 12 }}
 
-      >
-        <div className={styles.topbutton} style={{ marginBottom: '2rem' }}>
-          {currentStep > 0 && (
-            <Button style={{ marginRight: '1rem' }} onClick={handlePrev}>
-              <LeftOutlined />
-            </Button>
-          )}
-        </div>
-        {/* <Steps current={currentStep}>
+        >
+          <div className={styles.topbutton} style={{ marginBottom: '2rem' }}>
+            {currentStep > 0 && (
+              <Button style={{ marginRight: '1rem' }} onClick={handlePrev}>
+                <LeftOutlined />
+              </Button>
+            )}
+          </div>
+          {/* <Steps current={currentStep}>
             {steps.map((step) => (
               <Step key={step.title} title={step.title} />
             ))}
           </Steps> */}
-        <div className={styles.content}>{steps[currentStep].content}</div>
-      </Form>
-      <div className={styles.bottom} style={{ marginTop: '2rem' }}>
-        <Space>
-          {currentStep > 0 && (
-            <Button style={{ marginRight: '1rem' }} onClick={handlePrev}>
-              <LeftOutlined />Back
-            </Button>
-          )}
-          {currentStep < steps.length - 1 && (
-            <Button type="primary" onClick={handleNext} >
-              Next<RightOutlined />
-            </Button>
-          )}
-          {currentStep === steps.length - 1 && (
-            <Button type="primary" onClick={handleSubmit}>
-              Submit
-            </Button>
-          )}
-        </Space>
-      </div>
+          <div className={styles.content}>{steps[currentStep].content}</div>
+        </Form>
+        <div className={styles.bottom} style={{ marginTop: '2rem' }}>
+          <Space>
+            {currentStep > 0 && (
+              <Button style={{ marginRight: '1rem' }} onClick={handlePrev}>
+                <LeftOutlined />Back
+              </Button>
+            )}
+            {currentStep < steps.length - 1 && (
+              <Button type="primary" onClick={handleNext} >
+                {currentStep==1 ? "Calculate": "Next"}<RightOutlined />
+              </Button>
+            )}
+            {currentStep === steps.length - 1 && (
+              <Button type="primary" onClick={handleSubmit}>
+                Save
+              </Button>
+            )}
+            <Link href="/quiz"><Button
+              size="large"
+              className={styles.buttonOutline}
+            >
+              Take A Quiz
+            </Button></Link>
+          </Space>
 
-    </div>
-    {celebrate && <canvas className={styles.canvas} ref={canvasRef} id="myCanvas">
-      {/* style={{ opacity: celebrate ?1:0}} */}
-    </canvas>}
-    {celebrate && <Confetti
-      drawShape={(ctx: any) => {
-        ctx.beginPath()
-        for (let i = 0; i < 22; i++) {
-          const angle = 0.35 * i
-          const x = (0.2 + (1.5 * angle)) * Math.cos(angle)
-          const y = (0.2 + (1.5 * angle)) * Math.sin(angle)
-          ctx.lineTo(x, y)
-        }
-        ctx.stroke()
-        ctx.closePath()
-      }}
-    />}
-  </>
-);
+        </div>
+
+      </div>
+      {celebrate && <canvas className={styles.canvas} ref={canvasRef} id="myCanvas">
+        {/* style={{ opacity: celebrate ?1:0}} */}
+      </canvas>}
+      {celebrate && <Confetti
+        drawShape={(ctx: any) => {
+          ctx.beginPath()
+          for (let i = 0; i < 22; i++) {
+            const angle = 0.35 * i
+            const x = (0.2 + (1.5 * angle)) * Math.cos(angle)
+            const y = (0.2 + (1.5 * angle)) * Math.sin(angle)
+            ctx.lineTo(x, y)
+          }
+          ctx.stroke()
+          ctx.closePath()
+        }}
+      />}
+    </>
+  );
 };
 
 export default CalculatorPage;
