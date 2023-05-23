@@ -1,0 +1,31 @@
+.button {
+  width: 326px;
+  height: 70px;
+  background-color: #eef1f4;
+  white-space: normal;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  margin-top: auto;
+}
+
+.button:hover {
+  background-color: #3e92cc;
+  color: white;
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+}
+
+.quiz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result {
+  width: 334px;
+  height: 209px;
+  margin-bottom: auto;
+}

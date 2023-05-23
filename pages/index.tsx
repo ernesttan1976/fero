@@ -127,11 +127,6 @@ const About: React.FC = () => {
         </Link>
       </div>
     </>
-    // <Container>
-    //   <Row>
-    //     <h1>About</h1>
-    //   </Row>
-    // </Container>
   );
 };
 

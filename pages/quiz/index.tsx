@@ -1,69 +1,117 @@
-'use client'
+"use client";
+import styles from "./index.module.css";
+import { Button, Radio } from "antd";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import { Inter } from "next/font/google";
 
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function QuizPage() {
+  const [correctAns, setCorrectAns] = useState<boolean>();
+  const [selectedAns, setSelectedAns] = useState<String>();
+  const [quiz, setQuiz] = useState<Array<Object>>([]);
+  const [activeQuestion, setActiveQuestion] = useState(0);
+  const [points, setPoints] = useState(0);
 
+  const router = useRouter();
+
+  const handleClickNext = () => {
+    setActiveQuestion(activeQuestion + 1);
+    if (quiz.length == activeQuestion + 1) router.push("/quiz/complete");
+  };
+
+  const handleSelect = (e: any) => {
+    setSelectedAns(e.currentTarget.value);
+  };
+
+  const handleSubmit = () => {
+    console.log(correctAns);
+    selectedAns == quiz[activeQuestion].correctAns
+      ? setCorrectAns(true)
+      : setCorrectAns(false);
+  };
+  const getQuiz = async () => {
+    try {
+      const response = await fetch(`/api/quiz`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const questions = await response.json();
+      setQuiz(questions.questions);
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
+  useEffect(() => {
+    getQuiz();
+    console.log(quiz);
+  }, []);
+
+  //add check if answer is correct add points and display text
   return (
-    <Form>
-      <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-        <Form.Label column sm={2}>
-          Email
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control type="email" placeholder="Email" />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-        <Form.Label column sm={2}>
-          Password
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control type="password" placeholder="Password" />
-        </Col>
-      </Form.Group>
-      <fieldset>
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label as="legend" column sm={2}>
-            Radios
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Check
-              type="radio"
-              label="first radio"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios1"
-            />
-            <Form.Check
-              type="radio"
-              label="second radio"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios2"
-            />
-            <Form.Check
-              type="radio"
-              label="third radio"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios3"
-            />
-          </Col>
-        </Form.Group>
-      </fieldset>
-      <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
-        <Col sm={{ span: 10, offset: 2 }}>
-          <Form.Check label="Remember me" />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} className="mb-3">
-        <Col sm={{ span: 10, offset: 2 }}>
-          <Button type="submit">Sign in</Button>
-        </Col>
-      </Form.Group>
-    </Form>
+    <>
+      <div className={styles.quiz}>
+        <h1>Quiz Time!</h1>
+        <p>{points}pts</p>
+        <h1>{quiz[activeQuestion]?.question}</h1>
+        <div className={styles.question}>
+          <Button
+            className={`${inter.className} ${styles.button}`}
+            value="option1"
+            onClick={handleSelect}
+          >
+            a){quiz[activeQuestion]?.options.option1}
+          </Button>
+          <Button
+            className={`${inter.className} ${styles.button}`}
+            value="option2"
+            onClick={handleSelect}
+          >
+            b) {quiz[activeQuestion]?.options.option2}
+          </Button>
+          <Button
+            className={`${inter.className} ${styles.button}`}
+            value="option3"
+            onClick={handleSelect}
+          >
+            c) {quiz[activeQuestion]?.options.option3}
+          </Button>
+          <Button
+            className={`${inter.className} ${styles.button}`}
+            value="option4"
+            onClick={handleSelect}
+          >
+            d) {quiz[activeQuestion]?.options.option4}
+          </Button>
+          <h1 className={styles.result}>
+            {correctAns === undefined
+              ? ""
+              : correctAns
+              ? "Great Job! That is correct"
+              : quiz[activeQuestion].explanation}
+          </h1>
+          <div>
+            <Button
+              className={`${inter.className} ${styles.button}`}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+            <Button
+              className={`${inter.className} ${styles.button}`}
+              onClick={handleClickNext}>
+              Next
+            </Button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
