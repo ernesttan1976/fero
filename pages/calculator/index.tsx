@@ -24,7 +24,7 @@ const CalculatorPage: React.FC = () => {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [barData, setBarData] = useState<any>({});
   const [celebrate, setCelebrate] = useState(false);
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const handleChange = (changedValues: any, allValues: any) => {
 
@@ -79,20 +79,29 @@ const CalculatorPage: React.FC = () => {
     //alert('add was called');
   }
 
+  function formatted(num: number){
+    return num ? num.toLocaleString(undefined,{
+      style: 'currency',
+      currency: 'SGD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) : ""
+  }
+
   const steps = [
     {
       title: 'Your Monthly Salary',
       content: (
         <>
           <div className={styles.innerContent}>
-            <Title level={1}>BUDGET CALCULATOR</Title>
+            <Title className={styles.title} level={1}>BUDGET CALCULATOR</Title>
             <Image
               src='/Paycheck.svg'
               width={300}
               height={300}
               alt="Paycheck"
             />
-            <Title level={2}>Your Monthly Salary</Title>
+            <Title className={styles.title} level={2}>Your Monthly Salary</Title>
             <Typography.Paragraph className={styles.text}>
               Key in your monthly salary to unlock a deeper understanding of your financial well-being with precise analysis and personalised insights</Typography.Paragraph>
             <Form.Item
@@ -118,14 +127,14 @@ const CalculatorPage: React.FC = () => {
       content: (
         <>
           <div className={styles.innerContent}>
-            <Title level={1} style={{ textAlign: "left" }}>BUDGET CALCULATOR</Title>
+            <Title className={styles.title} level={1} style={{ textAlign: "left" }}>BUDGET CALCULATOR</Title>
             <Image
               src='/CashPayments.svg'
               width={300}
               height={300}
               alt="Paycheck"
             />
-            <Title level={2}>Your Monthly Expenses</Title>
+            <Title className={styles.title} level={2}>Your Monthly Expenses</Title>
             <Typography.Paragraph className={styles.text}>
               Track and categorise your monthly expenses effortlessly to gain valuable insights and take control of your financial future.</Typography.Paragraph>
             <Form.Item
@@ -138,7 +147,7 @@ const CalculatorPage: React.FC = () => {
               }]}
             >
               <InputNumber
-                className={styles.fields}
+                className={styles.fieldsShort}
                 formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               />
             </Form.Item>
@@ -152,7 +161,7 @@ const CalculatorPage: React.FC = () => {
               }]}
             >
               <InputNumber
-                className={styles.fields}
+                className={styles.fieldsShort}
                 formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               />
             </Form.Item>
@@ -166,7 +175,7 @@ const CalculatorPage: React.FC = () => {
               }]}
             >
               <InputNumber
-                className={styles.fields}
+                className={styles.fieldsShort}
                 formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               />
             </Form.Item>
@@ -180,7 +189,7 @@ const CalculatorPage: React.FC = () => {
               }]}
             >
               <InputNumber
-                className={styles.fields}
+                className={styles.fieldsShort}
                 formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               />
             </Form.Item>
@@ -194,7 +203,7 @@ const CalculatorPage: React.FC = () => {
               }]}
             >
               <InputNumber
-                className={styles.fields}
+                className={styles.fieldsShort}
                 formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               />
             </Form.Item>
@@ -208,7 +217,7 @@ const CalculatorPage: React.FC = () => {
               }]}
             >
               <InputNumber
-                className={styles.fields}
+                className={styles.fieldsShort}
                 formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               />
             </Form.Item>
@@ -222,7 +231,7 @@ const CalculatorPage: React.FC = () => {
               }]}
             >
               <InputNumber
-                className={styles.fields}
+                className={styles.fieldsShort}
                 formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               />
             </Form.Item>
@@ -234,16 +243,15 @@ const CalculatorPage: React.FC = () => {
       title: 'Calculating...',
       content: (
         <>
-          <div className={styles.blueInnerContent}>
-            <Title level={1} style={{ textAlign: "left" }}>Calculating...</Title>
+          <div className={styles.innerContent}>
             <Image
-              src="/FinanceCalculator.svg"
-              width={300}
-              height={300}
+              src="/FinanceCalculatorSmall.svg"
+              width={400}
+              height={400}
               alt="Finance Calculator"
             />
-            {/* <Title level={2}>Your Monthly Expenses</Title> */}
-            <Typography.Paragraph className={styles.text}>
+            <Title className={styles.title} level={1} style={{ textAlign: "center" }}>Calculating...</Title>
+            <Typography.Paragraph className={styles.text} style={{ textAlign: "center" }}>
               Ready to have a better plan for your budget</Typography.Paragraph>
           </div>
         </>
@@ -254,16 +262,19 @@ const CalculatorPage: React.FC = () => {
       content: (
         <>
           <div className={styles.innerContent}>
-            <Title level={1} style={{ textAlign: "left" }}>BUDGET CALCULATOR</Title>
+            <Title className={styles.title} level={1} style={{ textAlign: "left" }}>BUDGET CALCULATOR</Title>
             <Image
               src='/FinanceCalculatorIllustrationHealthy.svg'
               width={300}
               height={300}
               alt="Finance Calculator Result"
             />
-            <Title level={2}>Great Job Peter!</Title>
+            <Title className={styles.title} level={2}>Great Job Peter!</Title>
             <Typography.Paragraph className={styles.text}>
               Great job! You currently practise healthy spending habits! Keep up the good work!</Typography.Paragraph>
+            <Title className={styles.title} level={2}>Recommendations</Title>
+            <Typography.Paragraph className={styles.text}>Based on Your Monthly Salary {formatted(formData.grossMonthlyIncome)}, below will be our recommended breakdown of the Budget Allocations. </Typography.Paragraph>
+            
             <Bar {...barData.expenses} />
             <Bar {...barData.cpf} />
             <Bar {...barData.insurance} />
@@ -339,21 +350,30 @@ const CalculatorPage: React.FC = () => {
     },
   };
 
+  // const formItemLayout = {
+  //   layout="horizontal",
+  //   labelCol={{
+  //     span: 6
+  //   }},
+  //   wrapperCol={{
+  //     span: 18
+  //   }},
+  //   labelAlign="right",
+  // }
+
   return (
     <>
-      <div className={styles.page}>
+      <div className={styles.page} style={{backgroundColor: currentStep===2 ? "#3E92CC": "white"}}>
 
         <Form
+          {...formItemLayout}
+          labelAlign="left"
           className={styles.form}
           form={form}
           name="calculator_form"
           onFinish={handleSubmit}
           onValuesChange={handleChange}
-          style={{ marginTop: '2rem' }}
-          {...formItemLayout}
-          labelCol={{ span: 12 }}
-          wrapperCol={{ span: 12 }}
-
+          style={{ marginTop: '2rem' }}        
         >
           <div className={styles.topbutton} style={{ marginBottom: '2rem' }}>
             {currentStep > 0 && (
@@ -368,33 +388,38 @@ const CalculatorPage: React.FC = () => {
             ))}
           </Steps> */}
           <div className={styles.content}>{steps[currentStep].content}</div>
-        </Form>
-        <div className={styles.bottom} style={{ marginTop: '2rem' }}>
-          <Space>
-            {currentStep > 0 && (
-              <Button style={{ marginRight: '1rem' }} onClick={handlePrev}>
-                <LeftOutlined />Back
-              </Button>
-            )}
-            {currentStep < steps.length - 1 && (
-              <Button type="primary" onClick={handleNext} >
-                {currentStep==1 ? "Calculate": "Next"}<RightOutlined />
-              </Button>
-            )}
-            {currentStep === steps.length - 1 && (
-              <Button type="primary" onClick={handleSubmit}>
-                Save
-              </Button>
-            )}
-            <Link href="/quiz"><Button
-              size="large"
-              className={styles.buttonOutline}
-            >
-              Take A Quiz
-            </Button></Link>
-          </Space>
+          <div className={styles.bottom} style={{ marginTop: '2rem' }}>
+            <Space direction="vertical">
+              {currentStep < steps.length - 1 && (
+                <Button type="primary" onClick={handleNext} className={styles.button}>
+                  {currentStep == 1 ? "Calculate" : currentStep == 2 ? "Show Results":"Next"}<RightOutlined />
+                </Button>
+              )}
+              {currentStep === steps.length - 1 && (
+                <Button
+                  type="primary"
+                  onClick={handleSubmit}
+                  className={styles.button}
+                >
+                  Save Data
+                </Button>
+              )}
+              {currentStep === steps.length - 1 && (<Link href="/quiz"><Button
+                size="large"
+                className={styles.buttonOutline}
+              >
+                Take A Quiz
+              </Button></Link>)}
+              {currentStep === 1 && (
+                <Button style={{ marginRight: '1rem' }} onClick={handlePrev}>
+                  <LeftOutlined />back
+                </Button>
+              )}
+            </Space>
 
-        </div>
+          </div>
+        </Form>
+
 
       </div>
       {celebrate && <canvas className={styles.canvas} ref={canvasRef} id="myCanvas">

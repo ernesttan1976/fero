@@ -30,7 +30,7 @@ export default function Bar(data: IBarData) {
   const percent = ""+(data.value/data.total*100).toFixed(0)+"%"
 
   console.log(formattedValue, data.total, percent);
-  console.log(`${Math.floor(data.value/data.total*300)}px`);
+  console.log(`${Math.floor(data.value/data.total*400)}px`);
 
   return (
     <div className={styles.box}>
@@ -39,8 +39,8 @@ export default function Bar(data: IBarData) {
         <div className={styles.target}>{`${formattedValue} (${percent})`}</div>
       </div>
       <div className={styles.bottomRow}>
-        <div className={styles.bar} style={{width: 300 }}/>
-        <div className={styles.value} style={{width: `${Math.floor(data.value/data.total*300)}px`}}></div>
+        <div className={styles.bar} style={{width: 400 }}/>
+        <div className={styles.value} style={{width: `${Math.floor(data.value/data.total*400)}px`}}></div>
       </div>
     </div>
   )

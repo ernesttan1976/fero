@@ -27,19 +27,18 @@ const About: React.FC = () => {
 
   return (
     <>
-      <Carousel afterChange={onChange} style={{ zIndex: "6", height: "70vh" }}>
+      <Carousel afterChange={onChange} style={{ zIndex: "6", height: "65vh" }}>
         <div className={styles.background}>
           <div className={styles.h1}>
             <p className={`${inter.className} ${styles.welcomeTo}`}>
               Welcome to
             </p>
-            <img src="/FERO.svg" />
+            <img className={styles.img} src="/FERO.svg" />
           </div>
         </div>
-        <div>
           <div className={styles.background}>
             <div className={styles.h1}>
-              <img src="/FinanceCalculator.svg" />
+              <img className={styles.img} src="/FinanceCalculator.svg" />
               <h1 className={`${inter.className} ${styles.heading}`}>
                 Track Your Finances Better
               </h1>
@@ -49,11 +48,9 @@ const About: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
-        <div>
           <div className={styles.background}>
             <div className={styles.h1}>
-              <img src="/FinancialLiteracy.svg" />
+              <img className={styles.img} src="/FinancialLiteracy.svg" />
               <h1 className={`${inter.className} ${styles.heading}`}>
                 Tailored Investment Plans
               </h1>
@@ -63,11 +60,9 @@ const About: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
-        <div>
           <div className={styles.background}>
             <div className={styles.h1}>
-              <img src="/FinancialPlanning.svg" />
+              <img className={styles.img} src="/FinancialPlanning.svg" />
               <h1 className={`${inter.className} ${styles.heading}`}>
                 Expenses At A Glance
               </h1>
@@ -77,11 +72,9 @@ const About: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
-        <div>
           <div className={styles.background}>
             <div className={styles.h1}>
-              <img src="/FinancialData.svg" />
+              <img className={styles.img} src="/FinancialData.svg" />
               <h1 className={`${inter.className} ${styles.heading}`}>
                 Access Your Financial Data At One Place
               </h1>
@@ -91,7 +84,6 @@ const About: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
       </Carousel>
       <div className={styles.user}>
         <Link href="/signup">
@@ -104,7 +96,7 @@ const About: React.FC = () => {
             width: "334px",
             background: "#2EC4B6",
             color: "white",
-            marginBottom: "30px",
+            margin: "0.8rem 0",
           }}
         >
           Create New Account
@@ -119,7 +111,7 @@ const About: React.FC = () => {
             width: "334px",
             color: "#2EC4B6",
             borderColor: "#2EC4B6",
-            marginBottom: "30px",
+            margin: "0.8rem 0",
           }}
         >
           Sign In

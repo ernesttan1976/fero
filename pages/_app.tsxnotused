@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 // Create a context for the user
-import { UserContext } from './components/userContext/UserContext';
-import { IUser } from '../../models';
+import { UserContext } from '@/app/components/userContext/UserContext';
+import { IUser } from '../models';
 
 import "./globals.css"
 
@@ -12,12 +12,12 @@ export const metadata = {
   description: 'Financial Advisory App',
 }
 
-export default function RootLayout({
+export default function _App({
   children,
 }: {
   children: React.ReactNode
 }) {
-
+  console.log('_App component rendered');
   const [user, setUser] = useState<IUser | null>(null);
 
 
@@ -31,7 +31,13 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body><UserContext.Provider value={{user, setUser}}>Testing{children}</UserContext.Provider></body>
+      <body>
+          {children}
+      </body>
     </html>
   )
 }
+
+{/* <UserContext.Provider value={{ user, setUser }}>
+{children}
+</UserContext.Provider> */}

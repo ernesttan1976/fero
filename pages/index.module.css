@@ -5,7 +5,13 @@
   justify-content: center;
   text-align: center;
   background-color: #3e92cc;
-  height: 80vh;
+  height: 65vh;
+  margin-bottom: 1rem;
+}
+
+.img {
+  width: 220px;
+  height: 220px;
 }
 
 .welcomeTo {
@@ -21,30 +27,33 @@
 .background {
   background: #3e92cc;
   z-index: 1;
+  height: 75vh;
 }
 
 .user {
   background-color: white;
   border-radius: 30px 30px 0px 0px;
-  height: 30vh;
+  padding-top: 2rem; 
+  height: 25vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   z-index: 6;
-  transform: translateY(10%);
 }
 
 .p {
-  width: 334px;
-  height: 57px;
-  font-size: 16px;
+  width: 400px;
+  height: 100px;
+  font-size: 0.9rem;
   color: white;
+  line-height: 1.2rem;
 }
 
 .heading {
-  font-size: 24px;
+  font-size: 1.2rem;
   color: white;
   margin-bottom: 0px;
+  line-height: 1.0rem;
 }
