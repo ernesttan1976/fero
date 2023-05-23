@@ -4,3 +4,4 @@ export async function GET() {
   await seedQuestions();
   return NextResponse.json({ message: "Seed Questions Successful" });
 }
+

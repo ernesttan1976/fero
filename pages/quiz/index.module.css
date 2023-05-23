@@ -5,10 +5,11 @@
   white-space: normal;
   border-radius: 20px;
   margin-bottom: 20px;
+  margin-top: auto;
 }
 
 .button:hover {
-  background-color: #667080;
+  background-color: #3e92cc;
   color: white;
 }
 
@@ -21,4 +22,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.result {
+  width: 334px;
+  height: 209px;
+  margin-bottom: auto;
 }

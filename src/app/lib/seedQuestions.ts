@@ -1,9 +1,9 @@
-import { userAgent } from "next/server";
-import type { NextApiRequest, NextApiResponse } from "next";
 import Quiz from "../models/Quiz";
+import connect from "../config/database";
 
 export default async function seedQuestions() {
   try {
+    await connect();
     const questions = [
       {
         topic: " Compounding Returns",
@@ -35,7 +35,7 @@ export default async function seedQuestions() {
     ];
     console.log(questions);
     if (Array.isArray(questions) && questions.length > 0) {
-      const newQuestions = await Quiz.insertMany(questions);
+      const newQuestions = await Quiz.create(questions);
       console.log("Quiz questions seeded successfully!");
       return newQuestions;
     }
