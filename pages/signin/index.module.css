@@ -1,0 +1,41 @@
+.signup {
+  padding: 24px;
+  background-color: white;
+  height: 100vh;
+}
+
+.fields {
+  width: 200px;
+}
+
+/* .p {
+  width: 334px;
+  height: 57px;
+  font-size: 16px;
+  color: white;
+} */
+
+.heading {
+  font-size: 24px;
+  color:#202020;
+  margin-bottom: 0px;
+}
+
+.button {
+  margin-top: 20px;
+  font: "Inter";
+  height: 51px;
+  width: 200px;
+  background: #2EC4B6;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.buttonOutline{
+  font: "Inter";
+  height: 51px;
+  width: 200px;
+  color: #2EC4B6;
+  border-color: #2EC4B6;
+  margin-bottom: 8px;
+}

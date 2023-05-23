@@ -8,7 +8,7 @@ export async function POST(request: Request) {
 
     const response = await signupUser(data);
     if (!response) return NextResponse.json({"message": "Error: sign up failed"});
-    return NextResponse.json({"message": "Signup Successful"});
+    return NextResponse.json(response);
     
 }
 

@@ -22,3 +22,9 @@ export interface IUser{
     created_at: Date;
     updated_at: Date;
   }
+
+  export interface IBarData{
+    title: String;
+    value: number;
+    total: number;
+}

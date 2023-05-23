@@ -36,6 +36,14 @@
   align-items: flex-start;
 }
 
+.blueInnerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #3E92CC;
+}
+
 .topbutton {
   width: 50vw;
   padding: 30px; 

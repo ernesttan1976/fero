@@ -6,48 +6,47 @@ import { Inter } from "next/font/google";
 import styles from "./index.module.css";
 import { LeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
 import { UserContext } from '../../src/app/components/userContext/UserContext';
+import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 
-const SignUp: React.FC = () => {
+const SignIn: React.FC =() => {
   const [form] = Form.useForm();
-  const router = useRouter();
   const {user, setUser} = useContext(UserContext);
-  const onFinish = (values: any) => {
+  const router = useRouter();
+  // if (user) alert(user);
+  const onFinish = async (values: any) => {
     //console.log('Received values of form: ', values);
-    delete values.confirmPassword;
-    
-    fetch(`/api/users/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    })
-      .then((response) => {
-        // Handle the response
-        if (response.ok) {
+    try {
+      const response = await fetch(`/api/users/signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+
+      if (response.ok) {
           // Handle the success case
           console.log('Request succeeded');
-          localStorage.setItem("token", JSON.stringify(response));
+          const {token} = await response.json();
+          localStorage.setItem("token", token);
           const userData = {email: values.email};
           localStorage.setItem("user", JSON.stringify(userData));
           setUser(userData);
           router.push('/calculator');
 
-        } else {
+      } else {
           // Handle the error case
+          console.log(response)
           console.log('Request failed');
-        }
-      })
-      .catch((error) => {
+      }
+    } catch(error){
         // Handle any error that occurs during the request
         console.error('Error:', error);
-      });
+      };
     };
-
 
   const formItemLayout = {
     labelCol: {
@@ -88,18 +87,8 @@ const SignUp: React.FC = () => {
         scrollToFirstError
       >
         <Link href="/"><LeftOutlined /></Link>
-        <div className={`${styles.heading} ${inter.className}`}>SIGN UP</div>
+        <div className={`${styles.heading} ${inter.className}`}>SIGN IN</div>
 
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[{
-            required: true,
-            message: 'Please input your first name'
-          }]}
-        >
-          <Input className={styles.fields}/>
-        </Form.Item>
         <Form.Item
           name="email"
           label="Email"
@@ -129,38 +118,15 @@ const SignUp: React.FC = () => {
         >
           <Input.Password className={styles.fields}/>
         </Form.Item>
-
-        <Form.Item
-          name="confirmPassword"
-          label="Confirm Password"
-          dependencies={['password']}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: 'Please confirm your password!',
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('The two passwords that you entered do not match!'));
-              },
-            }),
-          ]}
-        >
-          <Input.Password className={styles.fields}/>
-        </Form.Item>
         <Form.Item
           {...tailFormItemLayout}
-          >
+        >
           <Button
             size="large"
-            className={styles.button}
+            className={styles.buttonOutline}
             htmlType="submit"
           >
-            Create Account
+            Sign In
           </Button>
         </Form.Item>
       </Form>
@@ -168,4 +134,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
