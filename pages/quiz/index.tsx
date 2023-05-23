@@ -11,10 +11,22 @@ import { useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
+interface Quiz {
+  topic: string;
+  question: string;
+  options: {
+    option1: string;
+    option2: string;
+    option3: string;
+    option4: string;
+  };
+  correctAns: string;
+  explanation: string;
+}
 export default function QuizPage() {
   const [correctAns, setCorrectAns] = useState<boolean>();
   const [selectedAns, setSelectedAns] = useState<String>();
-  const [quiz, setQuiz] = useState<Array<Object>>([]);
+  const [quiz, setQuiz] = useState<Array<Quiz>>([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [points, setPoints] = useState(0);
 

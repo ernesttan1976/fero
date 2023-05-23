@@ -24,7 +24,7 @@ const usersSchema = new Schema(
     role: {
       type: String,
       default: "User",
-      enum: ["User", "Admin"]
+      enum: ["User", "Admin"],
     },
     avatar: {
       type: String,
@@ -58,10 +58,11 @@ usersSchema.set("toJSON", {
 // try {
 //   // Try to retrieve the existing model
 //   let User = mongoose.model("User");
-  
+
 // } catch (error) {
 //   // If the model doesn't exist, define and compile it
 //   let User = mongoose.model("User", usersSchema);
 // }
 
-module.exports = mongoose.model("User", usersSchema);
+const User = mongoose.models["User"] || mongoose.model("User", usersSchema);
+module.exports = User;
