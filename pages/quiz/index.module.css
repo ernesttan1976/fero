@@ -1,3 +1,9 @@
+.quiz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .button {
   width: 326px;
   height: 70px;
@@ -16,16 +22,34 @@
 .question {
   display: flex;
   flex-direction: column;
-}
-
-.quiz {
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .result {
-  width: 334px;
-  height: 209px;
-  margin-bottom: auto;
+  max-width: 334px;
+  max-height: 209px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+.bottomButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.h1 {
+  font-size: 24px;
+  align-items: center;
+}
+.question {
+  font-size: 16px;
+}
+.header {
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-16%);
+  margin-bottom: 20px;
 }

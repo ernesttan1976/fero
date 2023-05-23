@@ -23,6 +23,7 @@ export default function QuizPage() {
   const handleClickNext = () => {
     setActiveQuestion(activeQuestion + 1);
     if (quiz.length == activeQuestion + 1) router.push("/quiz/complete");
+    setCorrectAns(undefined);
   };
 
   const handleSelect = (e: any) => {
@@ -58,9 +59,11 @@ export default function QuizPage() {
   return (
     <>
       <div className={styles.quiz}>
-        <h1>Quiz Time!</h1>
-        <p>{points}pts</p>
-        <h1>{quiz[activeQuestion]?.question}</h1>
+        <img src="/Revenue_Growth.svg"></img>
+        <div className={`${inter.className} ${styles.header}`}>
+          <h1 className={styles.h1}>Quiz Time!</h1>
+          <h1 className={styles.question}>{quiz[activeQuestion]?.question}</h1>
+        </div>
         <div className={styles.question}>
           <Button
             className={`${inter.className} ${styles.button}`}
@@ -97,7 +100,7 @@ export default function QuizPage() {
               ? "Great Job! That is correct"
               : quiz[activeQuestion].explanation}
           </h1>
-          <div>
+          <div className={`${styles.bottomButtons}`}>
             <Button
               className={`${inter.className} ${styles.button}`}
               onClick={handleSubmit}
@@ -106,7 +109,8 @@ export default function QuizPage() {
             </Button>
             <Button
               className={`${inter.className} ${styles.button}`}
-              onClick={handleClickNext}>
+              onClick={handleClickNext}
+            >
               Next
             </Button>
           </div>
