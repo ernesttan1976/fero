@@ -5,10 +5,10 @@ export const UserContext = createContext<[null | {}, React.Dispatch<React.SetSta
 
 
 
-export const metadata = {
-  title: 'FERO',
-  description: 'Financial Advisory App',
-}
+// export const metadata = {
+//   title: 'FERO',
+//   description: 'Financial Advisory App',
+// }
 
 export default function RootLayout({
   children,

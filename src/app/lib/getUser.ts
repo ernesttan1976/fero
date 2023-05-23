@@ -8,7 +8,7 @@ import { faker } from "@faker-js/faker";
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
 //const SALT_ROUNDS = 6;
 
-export default async function signupUser(userData: IUser) {
+export default async function getUser(email) {
 
   try {
 
