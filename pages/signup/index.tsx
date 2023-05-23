@@ -15,37 +15,38 @@ const SignUp: React.FC = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const {user, setUser} = useContext(UserContext);
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     //console.log('Received values of form: ', values);
-    delete values.confirmPassword;
-    
-    fetch(`/api/users/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    })
-      .then((response) => {
-        // Handle the response
+
+    try {
+        delete values.confirmPassword;
+        
+        const response = await fetch(`/api/users/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+
         if (response.ok) {
-          // Handle the success case
-          console.log('Request succeeded');
-          localStorage.setItem("token", JSON.stringify(response));
-          const userData = {email: values.email};
-          localStorage.setItem("user", JSON.stringify(userData));
-          setUser(userData);
-          router.push('/calculator');
+              // Handle the success case
+              console.log('Request succeeded');
+              const {token} = await response.json();
+              localStorage.setItem("token", token);
+              const userData = {name: values.name, email: values.email};
+              localStorage.setItem("user", JSON.stringify(userData));
+              setUser(userData);
+              router.push('/calculator');
 
         } else {
-          // Handle the error case
-          console.log('Request failed');
+              // Handle the error case
+              console.log('Request failed');
         }
-      })
-      .catch((error) => {
+      } catch(error){
         // Handle any error that occurs during the request
         console.error('Error:', error);
-      });
+      };
     };
 
 

@@ -32,7 +32,7 @@ const SignIn: React.FC =() => {
           console.log('Request succeeded');
           const {token} = await response.json();
           localStorage.setItem("token", token);
-          const userData = {email: values.email};
+          const userData = {name: values.name, email: values.email};
           localStorage.setItem("user", JSON.stringify(userData));
           setUser(userData);
           router.push('/calculator');

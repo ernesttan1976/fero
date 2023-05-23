@@ -9,8 +9,9 @@ import { IBarData } from '../../../../models';
 //   targetValue: number;
 // }
 
-export default function Bar(data: IBarData) {
+export default function Bar(props: any) {
 
+  const {data, color} = props;
 
   const formattedValue = data.value ? data.value.toLocaleString(undefined,{
     style: 'currency',
@@ -40,7 +41,7 @@ export default function Bar(data: IBarData) {
       </div>
       <div className={styles.bottomRow}>
         <div className={styles.bar} style={{width: 400 }}/>
-        <div className={styles.value} style={{width: `${Math.floor(data.value/data.total*400)}px`}}></div>
+        <div className={styles.value} style={{width: `${Math.floor(data.value/data.total*400)}px`, backgroundColor: color? `${color}`: `#2EC4B6`}}></div>
       </div>
     </div>
   )

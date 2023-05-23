@@ -7,6 +7,7 @@ export async function POST(request: Request) {
     //req.json, not req.body
 
     const response = await signupUser(data);
+    console.log(response);
     if (!response) return NextResponse.json({"message": "Error: sign up failed"});
     return NextResponse.json(response);
     

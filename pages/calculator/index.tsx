@@ -11,6 +11,7 @@ import { UserContext } from '../../src/app/components/userContext/UserContext';
 import { IUser } from '../../models';
 import Bar from '@/app/components/bar/bar';
 import Link from 'next/link';
+import jwt from 'jsonwebtoken';
 
 const { Step } = Steps;
 const { TextArea } = Input;
@@ -24,12 +25,14 @@ const CalculatorPage: React.FC = () => {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [barData, setBarData] = useState<any>({});
   const [celebrate, setCelebrate] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const [recommendation, setRecommendation] = useState({ text1: "", text2: "", color: "green" });
+  const [user, setUser ] = useState({name:"", email:""});
 
   const handleChange = (changedValues: any, allValues: any) => {
 
-    const userEmail = user ? user.email : "not@defined.com"
-    setFormData({ ...formData, ...allValues, ...changedValues, email: userEmail }); // Update the form data state with all the form values
+    const u = localStorage.getItem("user");
+    setUser(JSON.parse(u || ""));
+    setFormData({ ...formData, ...allValues, ...changedValues, email: user.email }); // Update the form data state with all the form values
     //console.log(formData);
     calculate();
   };
@@ -79,8 +82,8 @@ const CalculatorPage: React.FC = () => {
     //alert('add was called');
   }
 
-  function formatted(num: number){
-    return num ? num.toLocaleString(undefined,{
+  function formatted(num: number) {
+    return num ? num.toLocaleString(undefined, {
       style: 'currency',
       currency: 'SGD',
       minimumFractionDigits: 2,
@@ -269,28 +272,69 @@ const CalculatorPage: React.FC = () => {
               height={300}
               alt="Finance Calculator Result"
             />
-            <Title className={styles.title} level={2}>Great Job Peter!</Title>
+            <Title className={styles.title} level={2}>{recommendation.text1}!</Title>
             <Typography.Paragraph className={styles.text}>
-              Great job! You currently practise healthy spending habits! Keep up the good work!</Typography.Paragraph>
+              {recommendation.text2}</Typography.Paragraph>
+            <Bar data={barData.expenses} color={recommendation.color} />
             <Title className={styles.title} level={2}>Recommendations</Title>
             <Typography.Paragraph className={styles.text}>Based on Your Monthly Salary {formatted(formData.grossMonthlyIncome)}, below will be our recommended breakdown of the Budget Allocations. </Typography.Paragraph>
-            
-            <Bar {...barData.expenses} />
-            <Bar {...barData.cpf} />
-            <Bar {...barData.insurance} />
-            <Bar {...barData.investment} />
-            <Bar {...barData.longTermSavings} />
-            <Bar {...barData.shortTermSavings} />
+
+            <Bar data={barData.expenses} />
+            <Bar data={barData.cpf} />
+            <Bar data={barData.insurance} />
+            <Bar data={barData.investment} />
+            <Bar data={barData.longTermSavings} />
+            <Bar data={barData.shortTermSavings} />
           </div>
         </>
       ),
     }
   ];
 
+  async function getRecommendation() {
+
+    try {
+
+      const u = localStorage.getItem("user");
+      setUser(JSON.parse(u || ""));
+
+      const percentExpenditure = barData.expenses.value / formData.grossMonthlyIncome;
+      const token = localStorage.getItem("token") || "notfound";
+      if (token === "notfound") {
+        console.log("Token not found")
+        return
+      }
+      const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
+      const decodedToken = await jwt.verify(token, JWT_SECRET);
+
+
+      const userData = decodedToken;
+      console.log(token, decodedToken, userData)
+
+      if (percentExpenditure <= 0.4) {
+        //     Expenses: <40% -> Healthy
+        setRecommendation({ text1: `Great Job ${user.name}`, text2: "Great job! You currently practise healthy spending habits! Keep up the good work!", color: "green" })
+      } else if (percentExpenditure > 0.4 && percentExpenditure <= 0.6) {
+        // Expenses: 40 - 60% -> Caution
+        setRecommendation({ text1: `Be careful ${user.name}`, text2: "You should relook and cut down on unnecessary spendings!", color: "yellow" })
+      } else if (percentExpenditure > 0.6) {
+        // Expenses: > 60% -> Unhealthy
+        setRecommendation({ text1: `Warning  ${user.name}`, text2: "You are currently spending more than your means and is at risk of overspending!", color: "red" })
+      } else {
+        setRecommendation({ text1: "Please refresh", text2: "", color: "green" })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleNext = () => {
     form.validateFields().then(() => {
       //recalculates if there are any changes
-      if (currentStep === 1) calculate()
+      if (currentStep === 1) {
+        calculate()
+        getRecommendation()
+      }
       setCurrentStep(currentStep + 1);
     });
   };
@@ -309,10 +353,10 @@ const CalculatorPage: React.FC = () => {
         setCelebrate(false);
       }, 5000);
 
-      // const email = "abc@xyz.com";
-      const email = user ? user.email : "not@defined.com";
+      const u = localStorage.getItem("user");
+      setUser(JSON.parse(u || ""));
       // Make a POST request to the API endpoint
-      fetch(`/api/calculator/${email}`, {
+      fetch(`/api/calculator/${user.email}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -363,7 +407,7 @@ const CalculatorPage: React.FC = () => {
 
   return (
     <>
-      <div className={styles.page} style={{backgroundColor: currentStep===2 ? "#3E92CC": "white"}}>
+      <div className={styles.page} style={{ backgroundColor: currentStep === 2 ? "#3E92CC" : "white" }}>
 
         <Form
           {...formItemLayout}
@@ -373,7 +417,7 @@ const CalculatorPage: React.FC = () => {
           name="calculator_form"
           onFinish={handleSubmit}
           onValuesChange={handleChange}
-          style={{ marginTop: '2rem' }}        
+          style={{ marginTop: '2rem' }}
         >
           <div className={styles.topbutton} style={{ marginBottom: '2rem' }}>
             {currentStep > 0 && (
@@ -392,7 +436,7 @@ const CalculatorPage: React.FC = () => {
             <Space direction="vertical">
               {currentStep < steps.length - 1 && (
                 <Button type="primary" onClick={handleNext} className={styles.button}>
-                  {currentStep == 1 ? "Calculate" : currentStep == 2 ? "Show Results":"Next"}<RightOutlined />
+                  {currentStep == 1 ? "Calculate" : currentStep == 2 ? "Show Results" : "Next"}<RightOutlined />
                 </Button>
               )}
               {currentStep === steps.length - 1 && (
