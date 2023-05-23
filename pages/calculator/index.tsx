@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import Confetti from 'react-confetti'
 import styles from "./index.module.css";
 import Image from 'next/image';
-import { UserContext } from "../../src/app/layout";
+import { UserContext } from '../../src/app/components/userContext/UserContext';
 import { IUser } from '../../models';
 import Bar from '@/app/components/bar/bar';
 import Link from 'next/link';
@@ -24,7 +24,7 @@ const CalculatorPage: React.FC = () => {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [barData, setBarData] = useState<any>({});
   const [celebrate, setCelebrate] = useState(false);
-  const [user, setUser] = useContext<[IUser | null, React.Dispatch<React.SetStateAction<IUser | null>>]>(UserContext);
+  const {user, setUser} = useContext(UserContext);
 
   const handleChange = (changedValues: any, allValues: any) => {
 

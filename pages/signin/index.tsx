@@ -6,14 +6,14 @@ import { Inter } from "next/font/google";
 import styles from "./index.module.css";
 import { LeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import {UserContext} from "../../src/app/layout";
+import { UserContext } from '../../src/app/components/userContext/UserContext';
 import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 
 const SignIn: React.FC =() => {
   const [form] = Form.useForm();
-  const [user, setUser] = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   const router = useRouter();
   // if (user) alert(user);
   const onFinish = async (values: any) => {

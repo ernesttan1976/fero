@@ -7,14 +7,14 @@ import styles from "./index.module.css";
 import { LeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import {UserContext} from "../../src/app/layout";
+import { UserContext } from '../../src/app/components/userContext/UserContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
 const SignUp: React.FC = () => {
   const [form] = Form.useForm();
   const router = useRouter();
-  const [user, setUser] = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   const onFinish = (values: any) => {
     //console.log('Received values of form: ', values);
     delete values.confirmPassword;
