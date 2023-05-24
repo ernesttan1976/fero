@@ -15,8 +15,8 @@
 }
 
 .button:hover {
-  background-color: #3e92cc;
-  color: white;
+  /* background-color: grey;
+  color: white; */
 }
 
 .question {
