@@ -30,8 +30,8 @@ export default function Bar(props: any) {
 
   const percent = ""+(data.value/data.total*100).toFixed(0)+"%"
 
-  console.log(formattedValue, data.total, percent);
-  console.log(`${Math.floor(data.value/data.total*400)}px`);
+  //console.log(formattedValue, data.total, percent);
+  //console.log(`${Math.floor(data.value/data.total*400)}px`);
 
   return (
     <div className={styles.box}>

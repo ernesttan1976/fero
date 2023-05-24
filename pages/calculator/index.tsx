@@ -348,7 +348,7 @@ const CalculatorPage: React.FC = () => {
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       setFormData(formData); // Update the form data state with the final form values
-      console.log(formData); // Access the form data in the handleSubmit function
+      //console.log(formData); // Access the form data in the handleSubmit function
       setCelebrate(true);
 
       setTimeout(() => {
