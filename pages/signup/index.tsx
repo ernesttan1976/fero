@@ -32,11 +32,11 @@ const SignUp: React.FC = () => {
         if (response.ok) {
               // Handle the success case
               console.log('Request succeeded');
-              const {token} = await response.json();
-              localStorage.setItem("token", token);
-              const userData = {name: values.name, email: values.email};
-              localStorage.setItem("user", JSON.stringify(userData));
-              setUser(userData);
+
+              const res = await response.json();
+              localStorage.setItem("token", res.token);
+              localStorage.setItem("user", JSON.stringify(res.user));
+              setUser(res.user);
               router.push('/calculator');
 
         } else {

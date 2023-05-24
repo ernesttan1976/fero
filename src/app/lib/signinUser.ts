@@ -24,8 +24,12 @@ export default async function signinUser(userData: IUser) {
     if (match) {
       const payload = { userFound };
       const token = jwt.sign(payload, JWT_SECRET, { expiresIn: 6000 });
-      console.log(token);
-      return token;
+      //console.log(token);
+      return ({"token": token, 
+      "user": {
+        "name": userFound.name,
+        "email": userFound.email,
+      }});
       console.log("user login successful");
     } else {
       throw new Error(`Wrong password`);

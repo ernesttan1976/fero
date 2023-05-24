@@ -30,9 +30,10 @@ const CalculatorPage: React.FC = () => {
 
   const handleChange = (changedValues: any, allValues: any) => {
 
-    const u = localStorage.getItem("user");
-    setUser(JSON.parse(u || ""));
-    setFormData({ ...formData, ...allValues, ...changedValues, email: user.email }); // Update the form data state with all the form values
+    const userString = localStorage.getItem("user") || "";
+    const userData = JSON.parse(userString); 
+    setUser(userData);
+    setFormData({ ...formData, ...allValues, ...changedValues, email: userData.email }); // Update the form data state with all the form values
     //console.log(formData);
     calculate();
   };
@@ -295,31 +296,32 @@ const CalculatorPage: React.FC = () => {
 
     try {
 
-      const u = localStorage.getItem("user");
-      setUser(JSON.parse(u || ""));
+      const userString = localStorage.getItem("user") || "";
+      const userData = JSON.parse(userString); 
+      setUser(userData);
 
       const percentExpenditure = barData.expenses.value / formData.grossMonthlyIncome;
-      const token = localStorage.getItem("token") || "notfound";
-      if (token === "notfound") {
-        console.log("Token not found")
-        return
-      }
-      const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
-      const decodedToken = await jwt.verify(token, JWT_SECRET);
+      // const token = localStorage.getItem("token") || "notfound";
+      // if (token === "notfound") {
+      //   console.log("Token not found")
+      //   return
+      // }
+      // const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
+      // const decodedToken = await jwt.verify(token, JWT_SECRET);
 
 
-      const userData = decodedToken;
-      console.log(token, decodedToken, userData)
+      // const userData = decodedToken || {};
+      // console.log(token, decodedToken, userData)
 
       if (percentExpenditure <= 0.4) {
         //     Expenses: <40% -> Healthy
-        setRecommendation({ text1: `Great Job ${user.name}`, text2: "Great job! You currently practise healthy spending habits! Keep up the good work!", color: "green" })
+        setRecommendation({ text1: `Great Job ${userData.name}`, text2: "Great job! You currently practise healthy spending habits! Keep up the good work!", color: "green" })
       } else if (percentExpenditure > 0.4 && percentExpenditure <= 0.6) {
         // Expenses: 40 - 60% -> Caution
-        setRecommendation({ text1: `Be careful ${user.name}`, text2: "You should relook and cut down on unnecessary spendings!", color: "yellow" })
+        setRecommendation({ text1: `Be careful ${userData.name}`, text2: "You should relook and cut down on unnecessary spendings!", color: "yellow" })
       } else if (percentExpenditure > 0.6) {
         // Expenses: > 60% -> Unhealthy
-        setRecommendation({ text1: `Warning  ${user.name}`, text2: "You are currently spending more than your means and is at risk of overspending!", color: "red" })
+        setRecommendation({ text1: `Warning  ${userData.name}`, text2: "You are currently spending more than your means and is at risk of overspending!", color: "red" })
       } else {
         setRecommendation({ text1: "Please refresh", text2: "", color: "green" })
       }
@@ -353,10 +355,11 @@ const CalculatorPage: React.FC = () => {
         setCelebrate(false);
       }, 5000);
 
-      const u = localStorage.getItem("user");
-      setUser(JSON.parse(u || ""));
+      const userString = localStorage.getItem("user") || "";
+      const userData = JSON.parse(userString); 
+      setUser(userData);
       // Make a POST request to the API endpoint
-      fetch(`/api/calculator/${user.email}`, {
+      fetch(`/api/calculator/${userData.email}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

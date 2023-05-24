@@ -4,8 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 //POST api/calculator/[email]
 export async function POST(req: NextRequest, res: NextResponse) {
-    if (!req.body) return NextResponse.json({"message": "Error: no req.body"})
-    const {calculator} = req.body;
+    const calculator = await req.json();
     const email = req.url.split('/').pop();
     if (!email) return NextResponse.json({"message": "Error: email is not defined"})
     const response = addCalculatorEntry(email, calculator);

@@ -29,7 +29,11 @@ export default async function signupUser(userData: IUser) {
     }
     const payload = { user };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: 6000 }); // 1hr
-    return token;
+    return ({"token": token, 
+    "user": {
+      "name": user.name,
+      "email": user.email,
+    }});
   } catch (error) {
     throw new Error(`signup user error ${error}`);
   }

@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     console.log(response);
     if (!response) return NextResponse.json({"message": "Error: sign in failed"});
     
-    return NextResponse.json({"token": response});
+    return NextResponse.json(response);
     
 }
 
