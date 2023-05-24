@@ -8,26 +8,15 @@ import { faker } from "@faker-js/faker";
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
 //const SALT_ROUNDS = 6;
 
-export default async function getUser(email) {
+export default async function getUser(email: String) {
 
   try {
 
     await connect();
 
-    const { name, email, password} = userData;
-    if (!name) throw new Error("Name is required");
+    let userFound = await User.findOne({email});
 
-    if (!password || password.length < 5) throw new Error("Password is required and min 4 characters.");
-
-    let emailFound = await User.findOne({email});
-    if (emailFound) throw new Error("This email is already taken");
-
-    console.log(userData);
-    const user = await User.create({...userData});
-    if (!user.avatar) {
-      user.avatar = faker.image.avatar();
-    }
-    const payload = { user };
+    const payload = { userFound };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: 6000 }); // 1hr
     return token;
   } catch (error) {
