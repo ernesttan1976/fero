@@ -23,6 +23,9 @@ interface Quiz {
   correctAns: string;
   explanation: string;
 }
+// interface Quiz {
+
+// }
 export default function QuizPage() {
   const [correctAns, setCorrectAns] = useState<boolean>();
   const [selectedAns, setSelectedAns] = useState<String>();
@@ -44,9 +47,11 @@ export default function QuizPage() {
 
   const handleSubmit = () => {
     console.log(correctAns);
-    selectedAns == quiz[activeQuestion].correctAns
-      ? setCorrectAns(true)
-      : setCorrectAns(false);
+    if (selectedAns == quiz[activeQuestion].correctAns) {
+      setPoints(points + 1);
+      setCorrectAns(true);
+    }
+    setCorrectAns(false);
   };
   const getQuiz = async () => {
     try {
@@ -62,6 +67,7 @@ export default function QuizPage() {
       console.error("Error:", err);
     }
   };
+
   useEffect(() => {
     getQuiz();
     console.log(quiz);
@@ -113,12 +119,16 @@ export default function QuizPage() {
               : quiz[activeQuestion].explanation}
           </h1>
           <div className={`${styles.bottomButtons}`}>
-            <Button
-              className={`${inter.className} ${styles.button}`}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
+            {correctAns === undefined ? (
+              <Button
+                className={`${inter.className} ${styles.button}`}
+                onClick={handleSubmit}
+              >
+                Submit {correctAns}
+              </Button>
+            ) : (
+              ""
+            )}
             <Button
               className={`${inter.className} ${styles.button}`}
               onClick={handleClickNext}

@@ -11,11 +11,13 @@
 .h1 {
   font-size: 24px;
   font-weight: 700;
+  color: white;
 }
 
 .p {
   font-size: 16px;
   font-weight: 500;
+  color: white;
 }
 
 .button {
