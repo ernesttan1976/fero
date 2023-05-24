@@ -6,10 +6,16 @@ export async function addCalculatorEntry(email: string, calculator: ICalculator)
 
         await connect();
         
-        const res = await Calculator.create(calculator);
-    
-        if (!res) throw new Error('Failed to save calculator entry');
-        return res;    
+        const foundCalculator = await Calculator.findOne({"email": email});
+        if (!foundCalculator){
+          const res = await Calculator.create(calculator);
+          if (!res) throw new Error('Failed to save calculator entry');
+          return res;      
+        } else {
+          const res = await Calculator.findOneAndUpdate({"email": email},calculator);
+          if (!res) throw new Error('Failed to update calculator entry');
+          return res;    
+        }
 }
 
 export async function getCalculatorEntry(email: string) {

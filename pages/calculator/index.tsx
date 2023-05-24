@@ -75,7 +75,7 @@ const CalculatorPage: React.FC = () => {
         total: formData.grossMonthlyIncome,
       },
     })
-    console.log(barData);
+    //console.log(barData);
   }
 
   const handleAdd = (add: any) => {
