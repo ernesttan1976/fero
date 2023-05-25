@@ -1,9 +1,7 @@
 ## FERO Financial Advisory App
 
-<video width="1080" height="768" controls>
-  <source src="https://youtu.be/w89dzZlIASY" type="text/html">
-  Your browser does not support the video tag.
-</video>
+[![Watch the video](https://img.youtube.com/vi/w89dzZlIASY/maxresdefault.jpg)](https://youtu.be/w89dzZlIASY)
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
