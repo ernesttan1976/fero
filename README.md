@@ -1,11 +1,9 @@
 ## FERO Financial Advisory App
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/w89dzZlIASY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- <video width="1080" height="768" controls>
-  <source src="https://youtu.be/w89dzZlIASY" type="video/mp4">
+<video width="1080" height="768" controls>
+  <source src="https://youtu.be/w89dzZlIASY" type="text/html">
   Your browser does not support the video tag.
-</video> -->
+</video>
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
